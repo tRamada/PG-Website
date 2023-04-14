@@ -7,9 +7,13 @@ let generateBtn = document.getElementById("generate");
 let output = document.getElementById("password");
 let saveBtn = document.getElementById("savePass");
 
+var slider = document.getElementById("myRange");
+var outputSlider = document.getElementById("outputSlider");
+outputSlider.innerHTML = slider.value; // Display the default slider value
+
 // Add event listener to generate button
 generateBtn.onclick = () => {
-  let passwordGenerator = new PasswordGenerator(parseInt(length.value));
+  let passwordGenerator = new PasswordGenerator(parseInt(slider.value));
   output.innerHTML = passwordGenerator.generate();
   saveBtn.style.visibility = "visible";
 }
@@ -18,6 +22,12 @@ generateBtn.onclick = () => {
 saveBtn.onclick = () => {
   alert("Password saved to clipboard");
   navigator.clipboard.writeText(output.innerHTML);
+}
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = () => {
+  console.log(slider.value);
+  outputSlider.innerHTML = slider.value;
 }
 
 class PasswordGenerator {
